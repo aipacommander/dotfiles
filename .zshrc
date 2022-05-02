@@ -8,6 +8,11 @@ alias psql="docker run --rm -it --net=host postgres:12 psql"
 # git日本語文字化け修正コマンド
 alias git_jp="git config --local core.quotepath false"
 
+# git -> g
+alias g="git"
+# 補完を効かせる
+compdef g=git
+
 # git-promptの読み込み
 source ~/.zsh/git-prompt.sh
 
@@ -32,3 +37,47 @@ export LOCAL_HOST_IP=`ifconfig en0 | grep inet | grep -v inet6 | sed -E "s/inet 
 if [[ -x `which colordiff` ]]; then
   alias diff='colordiff'
 fi
+
+# prefix + [
+bindkey '^[' peco-git-checkout
+function peco-git-checkout () {
+    local selected_branch=$(git branch --list --no-color | colrm 1 2 | peco)
+    if [ -n "$selected_branch" ]; then
+    BUFFER="git checkout ${selected_branch}"
+    zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-git-checkout
+
+# prefix + F
+bindkey '^F' peco-src
+function peco-src() {
+    local selected_dir=$(ghq list | peco --query "$LBUFFER")
+    if [ -n "$selected_dir" ]; then
+    selected_dir="$GOPATH/Desktop/workspace/12_git/$selected_dir"
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-src
+
+# prefix + o
+bindkey '^o' open-git-remote
+function open-git-remote() {
+    local selected=$(ghq list | peco --query "$LBUFFER")
+    if [ -n "$selected" ]; then
+    if [ -x "`which wslview`" ]; then
+        BUFFER="wslview https://${selected}"
+    else
+        BUFFER="open https://${selected}"
+    fi
+    zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N open-git-remote
+
+export GOPATH=$HOME
+export PATH=$PATH:$GOPATH/bin
