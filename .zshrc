@@ -4,6 +4,8 @@ alias launch_anaconda='export DPORT=$(expr $RANDOM % 100 + 10000); echo "http://
 
 # psqlコマンド
 alias psql="docker run --rm -it --net=host postgres:12 psql"
+alias pg_dump='docker run --rm -it -v $(pwd):/tmp -w /tmp --net=host postgres:12 pg_dump'
+alias pg_restore='docker run --rm -it -v $(pwd):/tmp -w /tmp --net=host postgres:12 pg_restore'
 
 # git日本語文字化け修正コマンド
 alias git_jp="git config --local core.quotepath false"
