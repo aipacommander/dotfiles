@@ -1,3 +1,5 @@
 brew "peco"
 brew "go"
 brew "ghq"
+brew "git"
+brew "make"
