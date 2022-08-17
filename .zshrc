@@ -83,3 +83,8 @@ zle -N open-git-remote
 
 export GOPATH=$HOME
 export PATH=$PATH:$GOPATH/bin
+export HISTSIZE=1000
+export SAVEHIST=10000
+setopt share_history
+setopt hist_reduce_blanks
+setopt hist_ignore_all_dups
