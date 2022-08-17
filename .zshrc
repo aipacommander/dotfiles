@@ -10,6 +10,8 @@ alias launch_anaconda='export DPORT=$(expr $RANDOM % 100 + 10000); echo "http://
 
 # psqlコマンド
 alias psql="docker run --rm -it --net=host postgres:12 psql"
+alias pg_dump='docker run --rm -it -v $(pwd):/tmp -w /tmp --net=host postgres:12 pg_dump'
+alias pg_restore='docker run --rm -it -v $(pwd):/tmp -w /tmp --net=host postgres:12 pg_restore'
 
 # git日本語文字化け修正コマンド
 alias git_jp="git config --local core.quotepath false"
@@ -87,4 +89,8 @@ zle -N open-git-remote
 
 export GOPATH=$HOME
 export PATH=$PATH:$GOPATH/bin
-
+export HISTSIZE=1000
+export SAVEHIST=10000
+setopt share_history
+setopt hist_reduce_blanks
+setopt hist_ignore_all_dups
