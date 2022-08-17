@@ -1,3 +1,9 @@
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/usr/local/Cellar/git/2.37.1/bin"
+export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
+alias make='gmake'
+
+autoload -Uz compinit
+compinit
 # Jupyter簡易起動
 alias launch_jupyter='export DPORT=$(expr $RANDOM % 100 + 10000); echo "http://localhost:${DPORT}" | pbcopy; docker run --rm --memory=1024mb -v $(pwd):/app -p ${DPORT}:8888 -it hoto17296/anaconda3-ja jupyter notebook --notebook-dir=/app/ --ip=0.0.0.0 --port=8888 --allow-root --NotebookApp.token='''
 alias launch_anaconda='export DPORT=$(expr $RANDOM % 100 + 10000); echo "http://localhost:${DPORT}" | pbcopy; docker run --rm --memory=1024mb -v $(pwd):/app -p ${DPORT}:8888 -it hoto17296/anaconda3-ja /bin/bash'
@@ -55,7 +61,7 @@ bindkey '^F' peco-src
 function peco-src() {
     local selected_dir=$(ghq list | peco --query "$LBUFFER")
     if [ -n "$selected_dir" ]; then
-    selected_dir="$GOPATH/Desktop/workspace/12_git/$selected_dir"
+    selected_dir="$GOPATH/ghq/$selected_dir"
     BUFFER="cd ${selected_dir}"
     zle accept-line
     fi
@@ -81,3 +87,4 @@ zle -N open-git-remote
 
 export GOPATH=$HOME
 export PATH=$PATH:$GOPATH/bin
+
