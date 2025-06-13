@@ -44,3 +44,7 @@
 	trustExitCode = true
 [ghq]
 	root = ~/Desktop/workspaces
+[init]
+	defaultBranch = main
+[core]
+	quotepath = false

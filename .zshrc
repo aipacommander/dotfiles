@@ -1,5 +1,6 @@
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/usr/local/Cellar/git/2.37.1/bin"
 export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
+export PATH="$PATH:/usr/local/bin"
 alias make='gmake'
 
 autoload -Uz compinit
@@ -97,3 +98,19 @@ export SAVEHIST=10000
 setopt share_history
 setopt hist_reduce_blanks
 setopt hist_ignore_all_dups
+
+# bun completions
+[ -s "~/.bun/_bun" ] && source "~/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Rspec
+functions rr() {
+	command docker compose exec web /bin/bash -c "TZ=Asia/Tokyo bundle exec rspec $1"
+}
+
+function ru() {
+	command docker compose exec web bundle exec /bin/bash -c "rubocop -a -c .rubocop.yml $1"
+}
