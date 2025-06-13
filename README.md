@@ -1,7 +1,11 @@
 # Usage
 
+```bash
+# Install dotfiles and set up symlinks
+$ bash ./install.sh
 ```
-$ bash ./.bin/prepare.sh
-$ bash ./.bin/install.sh
-$ bash ./.bin/setup
-```
+
+## Features
+
+- Homebrew packages management via Brewfile
+- Claude Code configuration (`.claude` directory)
